@@ -1,5 +1,25 @@
 #include <Arduboy2.h>
 #include "src/Images.h"
+// Add frames to the keyframes array to create your animation
+// The values are:
+// frames since last frame, the first frame should always be 1 here.
+// Left shoulder angle
+// Left elbow angle
+// Right shoulder angle
+// Right elbow angle
+// Left thigh angle
+// Left knee angle
+// Right thigh angle
+// Right knee angle
+// Head X position
+// Head Y position
+// Torso X position, shoulders and thighs are connected to the torso
+// Torso Y position
+int keyframes[][13] = {{1, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}, {120, 0, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
+                       {20, 1, 4, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},{60, 1, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
+                       {60, 1, 4, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},{60, 1, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
+                       {120, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}, {20, 27, 0, 27, 0, 30, 23, 24, 6, 64, 18, 62, 26},
+                       {20, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}};
 
 template <typename type>
 type sign(type value) { 
@@ -17,12 +37,6 @@ const int nextoffset[36][2] = { {-7,0},  {-6,-1}, {-6,-2}, {-6,-3}, {-5,-4}, {-4
                                 {0,-7},  {1,-6},  {2,-6},  {3,-6},  {4,-5},  {5,-4},  {6,-3},  {6,-2},  {6,-1},  
                                 {7,0},   {6,1},   {6,2},   {6,3},   {5,4},   {4,5},   {3,6},   {2,6},   {1,6},   
                                 {0,7},   {-1,6},  {-2,6},  {-3,6},  {-4,5},  {-5,4},  {-6,3},  {-6,2},  {-6,1}};
-
-int keyframes[][13] = {{1, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}, {120, 0, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
-                       {20, 1, 4, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},{60, 1, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
-                       {60, 1, 4, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},{60, 1, 9, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24},
-                       {120, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}, {20, 27, 0, 27, 0, 30, 23, 24, 6, 64, 18, 62, 26},
-                       {20, 27, 0, 27, 0, 27, 0, 27, 0, 64, 16, 62, 24}};
 
 float framedat[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int currentframe = 0;
